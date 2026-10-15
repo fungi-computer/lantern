@@ -1,0 +1,79 @@
+{
+  "expectedTarballFiles": [
+    "package/LICENSE",
+    "package/README.md",
+    "package/dist/art/ascii-art.d.ts",
+    "package/dist/art/ascii-art.js",
+    "package/dist/art/ascii-fungi.d.ts",
+    "package/dist/art/ascii-fungi.js",
+    "package/dist/art/vishnu.d.ts",
+    "package/dist/art/vishnu.js",
+    "package/dist/banner.d.ts",
+    "package/dist/banner.js",
+    "package/dist/index.d.ts",
+    "package/dist/index.js",
+    "package/dist/search.d.ts",
+    "package/dist/search.js",
+    "package/docs/api/README.md",
+    "package/docs/api/banner.md",
+    "package/docs/api/index.md",
+    "package/package.json"
+  ],
+  "localDependencies": ["../stipe"],
+  "runtimeFixture": "test/stranger/runtime.mjs",
+  "typecheckFixture": "test/stranger/consumer.mts",
+  "docs": {
+    "sigil": "run",
+    "home": {
+      "lead": "Shared banners, prompts and progress messages for Node command-line tools, so every Fungi CLI looks and feels the same without hand-rolling terminal presentation.",
+      "example": {
+        "file": "home.ts",
+        "title": "Run a task and print its result",
+        "caption": "A noninteractive Cli runs a task and a checklist; prints the task's result to stdout."
+      },
+      "ladder": {
+        "start": [
+          {
+            "title": "Quickstart",
+            "href": "/quickstart/",
+            "description": "Wire up welcome, a task and a checklist."
+          },
+          {
+            "title": "Core concepts",
+            "href": "/concepts/#core-concepts",
+            "description": "Interactivity detection, tasks, checklists and search."
+          }
+        ],
+        "tasks": [
+          {
+            "title": "Render a banner without prompts",
+            "href": "/api/banner/",
+            "description": "renderBanner draws brand art for interactive or piped output."
+          },
+          {
+            "title": "Report pass/fail checks",
+            "href": "/api/entry/",
+            "description": "Cli.checklist and task print consistent status lines in any terminal."
+          }
+        ],
+        "reference": [
+          {
+            "title": "API reference",
+            "href": "/api/",
+            "description": "Every export: Cli, renderBanner and the search helpers."
+          },
+          {
+            "title": "Install",
+            "href": "/install/",
+            "description": "Entrypoints, dependencies and the Node.js version."
+          },
+          {
+            "title": "Status and limits",
+            "href": "/status/",
+            "description": "Stability, errors and license."
+          }
+        ]
+      }
+    }
+  }
+}
