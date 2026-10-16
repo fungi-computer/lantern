@@ -128,7 +128,7 @@ describe("family terminal presentation", () => {
     cli.checklist()("kernel", false, "download required");
     expect(transcript).toBe("Build\nFAIL kernel: download required\n");
   });
-  it("prints raw lines with no clack box, even where info() would gutter them", () => {
+  it("keeps a URL on one framed line, with the bar but no status symbol", () => {
     const output = new PassThrough();
     let transcript = "";
     output.on("data", (chunk: Buffer) => {
@@ -142,12 +142,13 @@ describe("family terminal presentation", () => {
     const url =
       "https://auth.openai.com/api/accounts/authorize?very=long&token=abc";
     cli.info("Sign in to OpenAI\nOpen sign-in page");
-    cli.raw(url);
+    cli.url(url);
     cli.info("Waiting for the browser…");
     const lines = transcript.split("\n");
-    expect(lines).toContain(url);
-    // raw() never adds clack's "●"/"│" gutter, on this or any other line.
-    expect(transcript).not.toContain(`│ ${url}`);
+    // One line: the frame bar, then the whole URL; no "●" status symbol.
+    expect(lines.filter((line) => line.includes(url))).toHaveLength(1);
+    expect(lines.find((line) => line.includes(url))?.endsWith(url)).toBe(true);
+    expect(transcript).toContain(`│  ${url}`);
     expect(transcript).not.toContain(`● ${url}`);
   });
 
