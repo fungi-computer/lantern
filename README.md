@@ -1,9 +1,8 @@
 # Lantern (`@fungi.computer/lantern`)
 
 Lantern provides terminal wordmarks, prompts and progress. Most people want
-[Oyster](https://docs.fungi.computer/reference/packages/#oyster) to run Apps or
-[Shiitake](https://docs.fungi.computer/reference/packages/#shiitake) to run
-Agents.
+[Oyster](https://docs.fungi.computer/oyster/) to run Apps or
+[Shiitake](https://docs.fungi.computer/shiitake/) to run Agents.
 
 Lantern gives Fungi command-line tools shared wordmarks, prompts, and progress
 messages, so every command looks and feels the same without rebuilding terminal
@@ -19,10 +18,10 @@ npm install @fungi.computer/lantern
 ```
 
 The package ships ESM only and depends on `@clack/core`, `@clack/prompts`, and
-[Stipe](https://docs.fungi.computer/reference/packages/#stipe) for terminal
-colors, all installed automatically. Import `@fungi.computer/lantern` for Node
-command-line tools, or `@fungi.computer/lantern/banner` to render a banner
-without importing Clack prompts or Node streams.
+[Stipe](https://docs.fungi.computer/stipe/) for terminal colors, all installed
+automatically. Import `@fungi.computer/lantern` for Node command-line tools, or
+`@fungi.computer/lantern/banner` to render a banner without importing Clack
+prompts or Node streams.
 
 ## Quick start
 
