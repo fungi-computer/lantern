@@ -160,22 +160,22 @@ info(message): void;
 
 `void`
 
-##### raw()
+##### url()
 
 ```ts
-raw(message): void;
+url(url): void;
 ```
 
-Write one line exactly as given, outside clack's log box. `info()`/`step()`
-prefix every line after the first with a "│ " continuation gutter, which a
-terminal selection can pull into a copy; text a caller needs copied whole (a
-URL) goes through here instead, never through the box.
+Show a URL inside the prompt frame as one unbroken line. `info()` and `step()`
+add a status symbol; this keeps only the frame's "│" bar before the URL and
+never inserts a line break, so the terminal soft-wraps it and a selection from
+its first character copies the whole URL.
 
 ###### Parameters
 
 | Parameter | Type     |
 | --------- | -------- |
-| `message` | `string` |
+| `url`     | `string` |
 
 ###### Returns
 

@@ -12,9 +12,3 @@ export const vishnuWordmark = `
 
 
 `;
-
-/** Small cap for narrow terminals. */
-export const compactMushroom = `  .---.
- (_____)
-   | |
-`;

@@ -1,5 +1,13 @@
 # @fungi.computer/lantern
 
+## 0.3.1
+
+### Patch Changes
+
+- Changes since 0.3.0:
+
+  - fix(lantern): remove the ASCII mushroom art everywhere
+
 ## 0.3.0
 
 ### Minor Changes

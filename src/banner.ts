@@ -1,9 +1,8 @@
 import { terminalPalette } from "@fungi.computer/stipe";
 import { fungiWordmark } from "./art/ascii-fungi.js";
-import { mushroom } from "./art/ascii-art.js";
-import { compactMushroom, vishnuWordmark } from "./art/vishnu.js";
+import { vishnuWordmark } from "./art/vishnu.js";
 
-export { fungiWordmark, mushroom, compactMushroom, vishnuWordmark };
+export { fungiWordmark, vishnuWordmark };
 
 /** Semantic colors from the Stipe palette; internal to colorizeBanner. */
 const cliColors = terminalPalette("mocha");
@@ -17,33 +16,29 @@ export type BannerOptions = {
 };
 
 /**
- * Per-brand presentation: the wide and narrow art, the plain-text label for
- * pipes and `NO_COLOR`, and whether that label still follows the narrow art
+ * Per-brand presentation: the wide art, the plain-text label for
+ * pipes and `NO_COLOR`, and whether that label still follows a narrow terminal
  * (a `fungi-local-auth` CLI names itself at every width).
  */
 const brandArt = {
   fungi: {
     wide: fungiWordmark,
-    narrow: compactMushroom,
     label: "fungi",
     narrowLabel: true,
   },
   vishnu: {
     wide: vishnuWordmark,
-    narrow: compactMushroom,
     label: "vishnu",
     narrowLabel: true,
   },
   "fungi-local-auth": {
     wide: fungiWordmark,
-    narrow: compactMushroom,
     label: "fungi-local-auth",
     narrowLabel: true,
   },
   /** The Computer welcome shows its own name below the wide wordmark. */
   computer: {
     wide: fungiWordmark,
-    narrow: undefined,
     label: "Fungi Computer",
     narrowLabel: false,
   },
@@ -51,7 +46,6 @@ const brandArt = {
   CliBrand,
   {
     wide: string;
-    narrow: string | undefined;
     label: string;
     narrowLabel: boolean;
   }
@@ -69,12 +63,11 @@ export function colorizeBanner(art: string, brand: CliBrand = "fungi"): string {
 
 /** Browser-safe renderer. Raw terminal writes need CRLF; ordinary TTYs own ONLCR. */
 export function renderBanner(options: BannerOptions): string {
-  const { label, narrow, narrowLabel, wide } = brandArt[options.brand];
+  const { label, narrowLabel, wide } = brandArt[options.brand];
   let banner: string;
   if (!options.interactive || options.noColor) banner = `${label}\n`;
   else {
-    const art = options.columns < 60 ? narrow : wide;
-    banner = art === undefined ? "" : colorizeBanner(art, options.brand);
+    banner = options.columns < 60 ? "" : colorizeBanner(wide, options.brand);
     if (
       (options.columns < 60 && narrowLabel) ||
       options.brand === "fungi-local-auth"

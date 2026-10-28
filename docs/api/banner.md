@@ -58,16 +58,6 @@ optional rawPty?: boolean;
 
 ## Variables
 
-### mushroom
-
-```ts
-const mushroom: "                  ...::::::::..\n                ......:========-:.\n              :........-==========-:\n            .-=:......:-============:\n           :====::....:::::----======-\n          .-=-:::................::-==-\n          -::....  .:.     .::. .....:-.\n          .....  .:==*: . .-*==.   ....:\n          .... .  :=#+::::::#*-  .  ....\n           ...  .  .  :====.   .  .....\n             ..  .  .       .   .  ..\n                  .  . . .   .   .\n                   .      .   .\n                     . .   .\n";
-```
-
-Retained Botanical terminal art; spacing is part of the image.
-
----
-
 ### fungiWordmark
 
 ```ts
@@ -85,16 +75,6 @@ const vishnuWordmark: "\n\n             d8,         d8b\n            `8P        
 ```
 
 Whimsy lettering, matching the retained Fungi mark's ten-line canvas.
-
----
-
-### compactMushroom
-
-```ts
-const compactMushroom: "  .---.\n (_____)\n   | |\n";
-```
-
-Small cap for narrow terminals.
 
 ## Functions
 

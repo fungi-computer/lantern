@@ -1,12 +1,7 @@
 import { PassThrough } from "node:stream";
 import { describe, expect, it } from "vitest";
 import { Cli } from "../src/index.js";
-import {
-  compactMushroom,
-  fungiWordmark,
-  renderBanner,
-  vishnuWordmark,
-} from "../src/banner.js";
+import { fungiWordmark, renderBanner, vishnuWordmark } from "../src/banner.js";
 
 describe("family terminal presentation", () => {
   it("keeps retained wordmark spacing at the sixty-column boundary", () => {
@@ -23,9 +18,7 @@ describe("family terminal presentation", () => {
       interactive: true,
       noColor: false,
     });
-    expect(narrow).toBe(
-      `\u001b[38;2;137;180;250m${compactMushroom}\u001b[0mvishnu\n`,
-    );
+    expect(narrow).toBe("vishnu\n");
   });
 
   it("gives Vishnu its own tint and the Fungi canvas height within sixty columns", () => {

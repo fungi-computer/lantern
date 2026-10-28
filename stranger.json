@@ -2,8 +2,6 @@
   "expectedTarballFiles": [
     "package/LICENSE",
     "package/README.md",
-    "package/dist/art/ascii-art.d.ts",
-    "package/dist/art/ascii-art.js",
     "package/dist/art/ascii-fungi.d.ts",
     "package/dist/art/ascii-fungi.js",
     "package/dist/art/vishnu.d.ts",
