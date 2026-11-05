@@ -203,6 +203,64 @@ at all.
 
 `string`
 
+##### note()
+
+```ts
+note(title, lines): void;
+```
+
+A boxed summary such as "Oyster is running": a titled Clack note in a terminal,
+a title line followed by indented lines when piped.
+
+###### Parameters
+
+| Parameter | Type                |
+| --------- | ------------------- |
+| `title`   | `string`            |
+| `lines`   | readonly `string`[] |
+
+###### Returns
+
+`void`
+
+##### warn()
+
+```ts
+warn(title, next): void;
+```
+
+A non-fatal problem and the exact step that works around it.
+
+###### Parameters
+
+| Parameter | Type     |
+| --------- | -------- |
+| `title`   | `string` |
+| `next`    | `string` |
+
+###### Returns
+
+`void`
+
+##### problem()
+
+```ts
+problem(title, next): void;
+```
+
+A failure and the exact next step, for the end of a failed command.
+
+###### Parameters
+
+| Parameter | Type     |
+| --------- | -------- |
+| `title`   | `string` |
+| `next`    | `string` |
+
+###### Returns
+
+`void`
+
 ##### step()
 
 ```ts

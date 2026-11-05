@@ -199,4 +199,39 @@ describe("family terminal presentation", () => {
       "Starting cedar\ncedar: queued #2\ncedar: queued #1\ncedar: running\n",
     );
   });
+  it("prints notes, warnings and problems as plain labelled lines when piped", () => {
+    const output = new PassThrough();
+    let transcript = "";
+    output.on("data", (chunk: Buffer) => {
+      transcript += chunk.toString();
+    });
+    const cli = new Cli({ brand: "fungi", output, interactive: false });
+    cli.note("Oyster is running", [
+      "Open: http://127.0.0.1:8787",
+      "Ctrl-C stops",
+    ]);
+    cli.warn("No desktop", "Run it again when online.");
+    cli.problem("Port busy", "Try --port 8788.");
+    expect(transcript).toBe(
+      "Oyster is running\n  Open: http://127.0.0.1:8787\n  Ctrl-C stops\n" +
+        "warning: No desktop\n  next: Run it again when online.\n" +
+        "error: Port busy\n  next: Try --port 8788.\n",
+    );
+  });
+
+  it("frames notes and problems in a terminal", () => {
+    const output = new PassThrough();
+    let transcript = "";
+    output.on("data", (chunk: Buffer) => {
+      transcript += chunk.toString();
+    });
+    const cli = new Cli({ brand: "fungi", output, interactive: true });
+    cli.note("Oyster is running", ["Open: http://127.0.0.1:8787"]);
+    cli.problem("Port busy", "Try --port 8788.");
+    expect(transcript).toContain("Oyster is running");
+    expect(transcript).toContain("http://127.0.0.1:8787");
+    expect(transcript).toContain("Port busy");
+    expect(transcript).toContain("Next step");
+    expect(transcript).toContain("Try --port 8788.");
+  });
 });

@@ -1,5 +1,13 @@
 # @fungi.computer/lantern
 
+## 0.4.0
+
+### Minor Changes
+
+- Changes since 0.3.1:
+
+  - feat(oyster): give oyster try a Lantern experience
+
 ## 0.3.1
 
 ### Patch Changes

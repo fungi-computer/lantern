@@ -124,6 +124,35 @@ export class Cli {
     return `\u001B]8;;${url}\u0007${label}\u001B]8;;\u0007`;
   }
 
+  /**
+   * A boxed summary such as "Oyster is running": a titled Clack note in a
+   * terminal, a title line followed by indented lines when piped.
+   */
+  note(title: string, lines: readonly string[]): void {
+    if (this.interactive)
+      prompts.note(lines.join("\n"), title, { output: this.output });
+    else
+      this.output.write(
+        `${title}\n${lines.map((line) => `  ${line}`).join("\n")}\n`,
+      );
+  }
+
+  /** A non-fatal problem and the exact step that works around it. */
+  warn(title: string, next: string): void {
+    if (this.interactive) {
+      prompts.log.warn(title, { output: this.output });
+      prompts.log.message(next, { output: this.output, spacing: 0 });
+    } else this.output.write(`warning: ${title}\n  next: ${next}\n`);
+  }
+
+  /** A failure and the exact next step, for the end of a failed command. */
+  problem(title: string, next: string): void {
+    if (this.interactive) {
+      prompts.cancel(title, { output: this.output });
+      prompts.note(next, "Next step", { output: this.output });
+    } else this.output.write(`error: ${title}\n  next: ${next}\n`);
+  }
+
   step(message: string): void {
     if (this.interactive) prompts.log.step(message, { output: this.output });
     else this.output.write(`${message}\n`);
