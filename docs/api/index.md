@@ -315,7 +315,7 @@ cancel(message): void;
 task<T>(message, work): Promise<T>;
 ```
 
-Stop animation on both success and failure, without exposing error payloads.
+Report work without taking input or cancellation ownership from its caller.
 
 ###### Type Parameters
 

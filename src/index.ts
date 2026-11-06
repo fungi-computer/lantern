@@ -2,7 +2,7 @@ import process from "node:process";
 import type { Readable, Writable } from "node:stream";
 import { ReadStream, WriteStream } from "node:tty";
 import * as prompts from "@clack/prompts";
-import { colorizeBanner, renderBanner, type CliBrand } from "./banner.js";
+import { renderBanner, type CliBrand } from "./banner.js";
 import { searchChoices, type SearchOptions } from "./search.js";
 export type { SearchChoice, SearchOptions } from "./search.js";
 
@@ -168,29 +168,32 @@ export class Cli {
     else this.output.write(`${message}\n`);
   }
 
-  /** Stop animation on both success and failure, without exposing error payloads. */
+  /** Report work without taking input or cancellation ownership from its caller. */
   async task<T>(
     message: string,
     work: (update: (message: string) => void) => Promise<T>,
   ): Promise<T> {
-    const spinner =
-      this.interactive && !this.noColor
-        ? prompts.spinner({ output: this.output, styleFrame: colorizeBanner })
+    const progress =
+      this.interactive && !this.noColor && this.columns > 0
+        ? prompts.taskLog({ title: message, output: this.output, limit: 1 })
         : undefined;
-    if (spinner) spinner.start(message);
-    else this.step(message);
+    if (!progress) this.step(message);
     try {
       let last = message;
       const result = await work((next) => {
         if (next === last) return;
         last = next;
-        if (spinner) spinner.message(next);
+        if (progress) progress.message(next);
         else this.step(next);
       });
-      if (spinner) spinner.stop(last);
+      if (progress) progress.success(last);
       return result;
     } catch (cause) {
-      if (spinner) spinner.error(`${message}: failed`);
+      if (progress)
+        progress.error(
+          `${message}: ${cause instanceof Error && cause.name === "AbortError" ? "stopped" : "failed"}`,
+          { showLog: false },
+        );
       throw cause;
     }
   }

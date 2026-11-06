@@ -1,5 +1,13 @@
 # @fungi.computer/lantern
 
+## 0.4.1
+
+### Patch Changes
+
+- Changes since 0.4.0:
+
+  - fix(oyster): unwind try startup on cancellation
+
 ## 0.4.0
 
 ### Minor Changes

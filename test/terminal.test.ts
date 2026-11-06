@@ -1,5 +1,5 @@
 import { PassThrough } from "node:stream";
-import { describe, expect, it } from "vitest";
+import { describe, expect, it, vi } from "vitest";
 import { Cli } from "../src/index.js";
 import { fungiWordmark, renderBanner, vishnuWordmark } from "../src/banner.js";
 
@@ -198,6 +198,49 @@ describe("family terminal presentation", () => {
     expect(transcript).toBe(
       "Starting cedar\ncedar: queued #2\ncedar: queued #1\ncedar: running\n",
     );
+  });
+  it("leaves command cancellation and terminal input with the caller", async () => {
+    vi.stubEnv("NO_COLOR", undefined);
+    vi.stubEnv("TERM", "xterm-256color");
+    try {
+      const cli = new Cli({
+        brand: "fungi",
+        input: new PassThrough(),
+        output: new PassThrough(),
+        interactive: true,
+      });
+      const signals = ["SIGINT", "SIGTERM", "exit"] as const;
+      const listeners = signals.map((signal) => process.listenerCount(signal));
+      const keypressListeners = process.stdin.listenerCount("keypress");
+      await cli.task("Preparing an owned resource", () => {
+        expect(signals.map((signal) => process.listenerCount(signal))).toEqual(
+          listeners,
+        );
+        expect(process.stdin.listenerCount("keypress")).toBe(keypressListeners);
+        return Promise.resolve();
+      });
+    } finally {
+      vi.unstubAllEnvs();
+    }
+  });
+  it("keeps progress usable when a terminal reports no columns", async () => {
+    const output = new PassThrough();
+    let transcript = "";
+    output.on("data", (chunk: Buffer) => {
+      transcript += chunk.toString();
+    });
+    const cli = new Cli({
+      brand: "fungi",
+      output,
+      interactive: true,
+      columns: 0,
+    });
+    await cli.task("Preparing", (update) => {
+      update("Prepared");
+      return Promise.resolve();
+    });
+    expect(transcript).toContain("Preparing");
+    expect(transcript).toContain("Prepared");
   });
   it("prints notes, warnings and problems as plain labelled lines when piped", () => {
     const output = new PassThrough();
