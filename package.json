@@ -1,6 +1,6 @@
 {
   "name": "@fungi.computer/lantern",
-  "version": "0.4.1",
+  "version": "0.4.2",
   "author": "Levi <levi@technomancy.dev>",
   "description": "Shared Fungi terminal wordmarks, Clack interaction and progress",
   "type": "module",

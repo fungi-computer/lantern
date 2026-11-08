@@ -1,5 +1,12 @@
 # @fungi.computer/lantern
 
+## 0.4.2
+
+### Patch Changes
+
+- Updated dependencies
+  - @fungi.computer/stipe@0.1.1
+
 ## 0.4.1
 
 ### Patch Changes
