@@ -69,7 +69,7 @@ describe("family terminal presentation", () => {
   });
 
   it("uses plain names for pipes and NO_COLOR, and CRLF for raw PTYs", () => {
-    for (const brand of ["fungi", "vishnu", "fungi-local-auth"] as const) {
+    for (const brand of ["fungi", "vishnu"] as const) {
       expect(
         renderBanner({
           brand,
@@ -97,7 +97,7 @@ describe("family terminal presentation", () => {
     const input = new PassThrough();
     const output = new PassThrough();
     input.end("do-not-consume\n");
-    const cli = new Cli({ brand: "fungi-local-auth", input, output });
+    const cli = new Cli({ brand: "fungi", input, output });
     expect(() => cli.password({ message: "Key" })).toThrow("needs a terminal");
     expect(() => cli.search({ message: "Choose", choices: [] })).toThrow(
       "needs a terminal",
@@ -128,7 +128,7 @@ describe("family terminal presentation", () => {
       transcript += chunk.toString();
     });
     const cli = new Cli({
-      brand: "fungi-local-auth",
+      brand: "fungi",
       output,
       interactive: true,
     });
@@ -147,7 +147,7 @@ describe("family terminal presentation", () => {
 
   it("wraps a link label in an OSC 8 hyperlink only when the terminal can show it", () => {
     const interactive = new Cli({
-      brand: "fungi-local-auth",
+      brand: "fungi",
       output: new PassThrough(),
       interactive: true,
     });
@@ -159,7 +159,7 @@ describe("family terminal presentation", () => {
       "\u001B]8;;https://example.com/a\u0007Open sign-in page\u001B]8;;\u0007",
     );
     const piped = new Cli({
-      brand: "fungi-local-auth",
+      brand: "fungi",
       output: new PassThrough(),
       interactive: false,
     });
@@ -169,7 +169,7 @@ describe("family terminal presentation", () => {
     process.env.NO_COLOR = "1";
     try {
       const noColor = new Cli({
-        brand: "fungi-local-auth",
+        brand: "fungi",
         output: new PassThrough(),
         interactive: true,
       });

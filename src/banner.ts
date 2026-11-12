@@ -6,7 +6,7 @@ export { fungiWordmark, vishnuWordmark };
 
 /** Semantic colors from the Stipe palette; internal to colorizeBanner. */
 const cliColors = terminalPalette("mocha");
-export type CliBrand = "fungi" | "vishnu" | "fungi-local-auth" | "computer";
+export type CliBrand = "fungi" | "vishnu" | "computer";
 export type BannerOptions = {
   brand: CliBrand;
   columns: number;
@@ -17,8 +17,7 @@ export type BannerOptions = {
 
 /**
  * Per-brand presentation: the wide art, the plain-text label for
- * pipes and `NO_COLOR`, and whether that label still follows a narrow terminal
- * (a `fungi-local-auth` CLI names itself at every width).
+ * pipes and `NO_COLOR`, and whether that label still follows a narrow terminal.
  */
 const brandArt = {
   fungi: {
@@ -29,11 +28,6 @@ const brandArt = {
   vishnu: {
     wide: vishnuWordmark,
     label: "vishnu",
-    narrowLabel: true,
-  },
-  "fungi-local-auth": {
-    wide: fungiWordmark,
-    label: "fungi-local-auth",
     narrowLabel: true,
   },
   /** The Computer welcome shows its own name below the wide wordmark. */
@@ -68,11 +62,7 @@ export function renderBanner(options: BannerOptions): string {
   if (!options.interactive || options.noColor) banner = `${label}\n`;
   else {
     banner = options.columns < 60 ? "" : colorizeBanner(wide, options.brand);
-    if (
-      (options.columns < 60 && narrowLabel) ||
-      options.brand === "fungi-local-auth"
-    )
-      banner += `${label}\n`;
+    if (options.columns < 60 && narrowLabel) banner += `${label}\n`;
   }
   return options.rawPty ? banner.replace(/\r?\n/gu, "\r\n") : banner;
 }

@@ -13,7 +13,7 @@
 ### CliBrand
 
 ```ts
-type CliBrand = "fungi" | "vishnu" | "fungi-local-auth" | "computer";
+type CliBrand = "fungi" | "vishnu" | "computer";
 ```
 
 ---
