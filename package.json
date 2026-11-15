@@ -24,24 +24,16 @@
     "LICENSE"
   ],
   "scripts": {
-    "lint": "eslint src test scripts --max-warnings=0 && ../../node_modules/.bin/oxlint --config ../../oxlint.config.ts --deny-warnings src test scripts",
     "typecheck": "tsc -p tsconfig.json --noEmit",
     "build": "pnpm run clean && tsc -p tsconfig.build.json",
     "clean": "node --input-type=module --eval \"import { rm } from 'node:fs/promises'; await rm('dist', { recursive: true, force: true });\"",
-    "test": "vitest run",
-    "docs": "tsx ../../tooling/repository/src/docs/cli.ts check --root ../..",
-    "docs:write": "tsx ../../tooling/repository/src/docs/cli.ts write --root ../..",
-    "pack": "mkdir -p ../../.botanical/lantern-pack && pnpm pack --pack-destination ../../.botanical/lantern-pack",
     "smoke": "node --input-type=module -e \"import('./dist/index.js').then(({Cli}) => { if (typeof Cli !== 'function') process.exit(1); })\"",
-    "stranger": "tsx ../../tooling/repository/src/artifacts/cli.ts --repo-root ../.. .",
-    "format:check": "node ../../tooling/repository/scripts/format-package-check.mjs",
-    "lint:anti-slop": "node ../../tooling/repository/scripts/lint-package-anti-slop.mjs",
     "prepack": "node scripts/prepare-package.mjs"
   },
   "dependencies": {
     "@clack/core": "1.4.3",
     "@clack/prompts": "1.7.0",
-    "@fungi.computer/stipe": "workspace:*"
+    "@fungi.computer/stipe": "0.1.1"
   },
   "devDependencies": {
     "@types/node": "24.13.3",
