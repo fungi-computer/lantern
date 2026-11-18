@@ -1,5 +1,65 @@
 # Lantern (`@fungi.computer/lantern`)
 
+Lantern gives Fungi's command-line tools the same wordmark, prompts and progress
+messages, so every command feels alike.
+
+```mermaid
+flowchart LR
+  Command[A Fungi command] --> Lantern
+  Lantern --> Terminal[Wordmark, prompts, progress]
+  Lantern -->|piped or noninteractive| Plain[Plain lines]
+```
+
+## Quick start
+
+Install it:
+
+```sh
+npm install @fungi.computer/lantern
+```
+
+This illustrative example uses a noninteractive CLI so progress and checklist
+messages go to the supplied output stream:
+
+```ts
+import { Cli } from "@fungi.computer/lantern";
+
+const cli = new Cli({ brand: "vishnu", interactive: false });
+cli.welcome("Build a game");
+await cli.task("Building", async (update) => {
+  update("Checking the project");
+  return "ready";
+});
+cli.checklist()("project", true, "ready");
+```
+
+The terminal tests exercise banner rendering, piped input behavior, and
+noninteractive task output in [`test/terminal.test.ts`](test/terminal.test.ts).
+
+## Common tasks
+
+### Show a welcome banner and a task
+
+`cli.welcome` and `cli.task` print the wordmark and a progress line. See the
+Quick start.
+
+### Print a checklist
+
+`cli.checklist()` prints ticked lines. See the Quick start.
+
+### Run without a terminal
+
+Pass `interactive: false` for CI or piped output. See
+[Core concepts](#core-concepts).
+
+### Know the limits
+
+See Limits and errors.
+
+## Reference
+
+### Overview
+
 Lantern provides terminal wordmarks, prompts and progress. Most people want
 [Oyster](https://docs.fungi.computer/oyster/) to run Apps or
 [Shiitake](https://docs.fungi.computer/shiitake/) to run Agents.
@@ -22,26 +82,6 @@ The package ships ESM only and depends on `@clack/core`, `@clack/prompts`, and
 automatically. Import `@fungi.computer/lantern` for Node command-line tools, or
 `@fungi.computer/lantern/banner` to render a banner without importing Clack
 prompts or Node streams.
-
-## Quick start
-
-This illustrative example uses a noninteractive CLI so progress and checklist
-messages go to the supplied output stream:
-
-```ts
-import { Cli } from "@fungi.computer/lantern";
-
-const cli = new Cli({ brand: "vishnu", interactive: false });
-cli.welcome("Build a game");
-await cli.task("Building", async (update) => {
-  update("Checking the project");
-  return "ready";
-});
-cli.checklist()("project", true, "ready");
-```
-
-The terminal tests exercise banner rendering, piped input behavior, and
-noninteractive task output in [`test/terminal.test.ts`](test/terminal.test.ts).
 
 ## Core concepts
 
